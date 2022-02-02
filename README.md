@@ -1,17 +1,51 @@
 <p align="center"><a href="https://stratebot.herokuapp.com" target="_blank"><img src="https://stratebot.herokuapp.com/stratebot.png" width="400"></a></p>
 
 <p align="center">
-<img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status" />
 <img src="https://img.shields.io/packagist/l/laravel/framework" alt="License" />
 </p>
 
 ## About Stratebot
 
-We want build an original startegy game application with Laravel, Tailwind css and Alpine.js.
+We want build an original strategy game application with Laravel, Tailwind css and Alpine.js.
 
 ## Status
 
 Work in progress...
+Todo:
+- Log
+- Template
+- Lang
+- Error page
+- Bdd
+- User
+- connexion
+- Leader board
+- Menu
+- Email
+- Password
+- User page
+- Rules
+- Versus
+- Config
+- Cards
+- Bot
+- Legals
+
+
+## Application
+
+The game is will be available on <a href='https://stratebot.herokuapp.com' target="_blank">Stratebot</a>
+
+## Dev
+
+Clone and configure .env file.
+
+We use Laravel Sail and Mix (webpack). Use this command for start Docker and live Dev Preview.
+```bash
+sail up -d
+sail npm run watch-poll
+```
+
 
 ## Security Vulnerabilities
 
