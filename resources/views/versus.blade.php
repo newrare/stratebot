@@ -15,4 +15,8 @@
         <div class="bg-emerald-300 p-5 rounded-lg">09</div>
         <div class="bg-emerald-300 p-5 rounded-lg">TOP</div>
     </div>
+
+    <livewire:attack />
 @endsection
+
+@livewireScripts
