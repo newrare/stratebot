@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Versus')
+@section('title', 'Test')
 
 @section('content')
     <div class="mt-10 grid grid-cols-3 md:grid-cols-6 lg:grid-cols-9 gap-5">

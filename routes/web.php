@@ -2,21 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\CardController;
+use App\Http\Controllers\CreateController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TestController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\UserMiddleware;
 
-Route::get('/versus', function () {
-    return view('versus');
+Route::get("/",     [HomeController::class, "index"]);
+Route::get("/test", [TestController::class, "index"]);
+
+Route::middleware([UserMiddleware::class])->group(function () {
+    Route::get   ("/create",        [CreateController::class,   "index"]    )->middleware(AdminMiddleware::class);
+    Route::get   ("/create/card",   [CardController::class,     "create"]   )->middleware(AdminMiddleware::class);
 });
