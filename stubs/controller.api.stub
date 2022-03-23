@@ -6,15 +6,15 @@ use Illuminate\Http\Request;
 
 use Response;
 
-class CardController extends Controller
+class {{ class }} extends Controller
 {
-    //route web /create/card
+    //route web /create/
     public function create()
     {
-        return view('createCard');
+        return view('');
     }
 
-    //GET /card
+    //GET /
     public function index()
     {
         //result
@@ -26,7 +26,7 @@ class CardController extends Controller
     }
 
 
-    //POST /card
+    //POST /
     public function store(Request $Request)
     {
         //result
@@ -37,7 +37,7 @@ class CardController extends Controller
         return Response::json($results);
     }
 
-    //GET /card/{id}
+    //GET //{id}
     public function show($id)
     {
         //result
@@ -48,7 +48,7 @@ class CardController extends Controller
         return Response::json($results);
     }
 
-    //PUT /card/{id}
+    //PUT //{id}
     public function update(Request $Request, $id)
     {
         //result
@@ -59,7 +59,7 @@ class CardController extends Controller
         return Response::json($results);
     }
 
-    //DELETE /card/{id}
+    //DELETE //{id}
     public function destroy($id)
     {
         //result

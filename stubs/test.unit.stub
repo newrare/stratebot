@@ -1,0 +1,14 @@
+<?php
+
+namespace Tests\Unit;
+
+use Tests\TestCase;
+
+class {{ class }} extends TestCase
+{
+    //GET /
+    public function test_index()
+    {
+        $this->assertTrue(true);
+    }
+}

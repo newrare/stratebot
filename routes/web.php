@@ -14,6 +14,6 @@ Route::get("/",     [HomeController::class, "index"]);
 Route::get("/test", [TestController::class, "index"]);
 
 Route::middleware([UserMiddleware::class])->group(function () {
-    Route::get   ("/create",        [CreateController::class,   "index"]    )->middleware(AdminMiddleware::class);
-    Route::get   ("/create/card",   [CardController::class,     "create"]   )->middleware(AdminMiddleware::class);
+    Route::get   ("/create",        [CreateController::class,   "index" ])->middleware(AdminMiddleware::class);
+    Route::get   ("/create/card",   [CardController::class,     "create"])->middleware(AdminMiddleware::class);
 });
