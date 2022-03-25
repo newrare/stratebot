@@ -4,9 +4,11 @@
 <img src="https://img.shields.io/packagist/l/laravel/framework" alt="License" />
 </p>
 
+
 ## About Stratebot
 
 We want build an original strategy game application with Laravel, Tailwind css and Alpine.js.
+
 
 ## Status
 
@@ -36,6 +38,7 @@ Todo:
 
 The game is will be available on <a href='https://stratebot.herokuapp.com' target="_blank">Stratebot</a>
 
+
 ## Dev
 
 Clone and configure .env file.
@@ -46,10 +49,22 @@ sail up -d
 sail npm run watch-poll
 ```
 
+If you have an error with tinker, use this command for reload builder:
+```bash
+sail composer dump-autoload
+```
+
+For debug in blade view, you can use this elements:
+```
+{{ dd(session()->all()) }}
+{{ dd(get_defined_vars()) }}
+```
+
 
 ## Security Vulnerabilities
 
 If you discover a security vulnerability within Stratebot, please send an e-mail to Bianchin Julien via [newrare@hotmail.com](mailto:newrare@hotmail.com). All security vulnerabilities will be promptly addressed.
+
 
 ## License
 

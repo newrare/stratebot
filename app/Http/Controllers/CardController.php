@@ -30,6 +30,7 @@ class CardController extends Controller
         ]);
 
         // create and save Card
+//Card::create[$Request->all()];
         $Card = new Card;
 
         $Card->name         = $Request->input('name');

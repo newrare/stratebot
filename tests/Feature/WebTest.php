@@ -39,6 +39,14 @@ class WebTest extends TestCase
     }
 
     //error
+    public function test_error()
+    {
+        $Response = $this->get('/error');
+
+        $Response->assertStatus(200);
+    }
+
+    //not found
     public function test_notFound()
     {
         $Response = $this->get('/notFound');
