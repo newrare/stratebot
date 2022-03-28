@@ -22,7 +22,7 @@ class CardTest extends TestCase
 
         $Response = $this->postJson('/api/card', $inputs);
 
-        $Response->assertStatus(200);
+        $Response->assertStatus(201);
 
         //dump($Response->getData());
     }
@@ -64,6 +64,6 @@ class CardTest extends TestCase
 
         $Response = $this->deleteJson('/api/card/' . $Card->id);
 
-        $Response->assertStatus(200);
+        $Response->assertStatus(204);
     }
 }

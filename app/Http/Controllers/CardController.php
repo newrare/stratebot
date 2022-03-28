@@ -3,23 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 use Response;
 
 class CardController extends Controller
 {
     //route web /create/card
-    public function create()
+    public function create(): View
     {
         return view('createCard');
     }
 
     //POST /api/card
-    public function store(Request $Request)
+    public function store(Request $Request): JsonResponse
     {
         //check inputs
-        $Request->validate([
+        $rules = [
             'name'          => 'required|string|unique:cards|max:100',
             'description'   => 'required|string|max:1000',
             'move'          => 'required|integer',
@@ -27,68 +29,70 @@ class CardController extends Controller
             'defense'       => 'required|integer',
             'type'          => 'required|in:water,fire,earth',
             'nemesis'       => 'nullable|json'
-        ]);
+        ];
 
-        // create and save Card
-//Card::create[$Request->all()];
-        $Card = new Card;
+        $Request->validate($rules);
 
-        $Card->name         = $Request->input('name');
-        $Card->description  = $Request->input('description');
-        $Card->move         = $Request->input('move');
-        $Card->attack       = $Request->input('attack');
-        $Card->defense      = $Request->input('defense');
-        $Card->type         = $Request->input('type');
-        //$Card->nemesis      = $Request->input('name');
+        // create Card by fillable Model and save it
+        $Card = Card::create($Request->all());
 
-        $Card->save();
-
-        return Response::json($Card->toArray());
+        //return array of Card
+        return Response::json($Card->toArray(), 201);
     }
 
     //GET /api/card
-    public function index()
+    public function index(): JsonResponse
     {
         //result
         $results = Card::pluck('id')->toArray();
 
-        return Response::json($results);
+        //return array of Card id
+        return Response::json($results, 200);
     }
 
     //GET /card/{id}
-    public function show($id)
+    public function show(Request $Request): JsonResponse
     {
-        $Card = Card::find($id);
+        //get Card
+        $Card = $Request->Card;
 
-        return Response::json($Card->toArray());
+        //return array of Card
+        return Response::json($Card->toArray(), 200);
     }
 
     //PUT /card/{id}
-    public function update(Request $Request, $id)
+    public function update(Request $Request): JsonResponse
     {
-        $Card = Card::find($id);
+        //create rules (is set only when input is defined)
+        $rules = [];
 
-        $Card->name         = $Request->input('name');
-        $Card->description  = $Request->input('description');
-        $Card->move         = $Request->input('move');
-        $Card->attack       = $Request->input('attack');
-        $Card->defense      = $Request->input('defense');
-        $Card->type         = $Request->input('type');
-        //$Card->nemesis      = $Request->input('name');
+        $Request->name          ?? $rules['name']           = 'required|string|unique:cards|max:100';
+        $Request->description   ?? $rules['description']    = 'required|string|max:1000';
+        $Request->move          ?? $rules['move']           = 'required|integer';
+        $Request->attack        ?? $rules['attack']         = 'required|integer';
+        $Request->defense       ?? $rules['defense']        = 'required|integer';
+        $Request->type          ?? $rules['type']           = 'required|in:water,fire,earth';
+        $Request->nemesis       ?? $rules['nemesis']        = 'nullable|json';
 
-        $Card->save();
+        //check inputs
+        $Request->validate($rules);
 
-        return Response::json($Card->toArray());
+        //get, update and save Card
+        $Card = $Request->Card;
+        $Card->update($Request->all());
+
+        //return array of Card updated
+        return Response::json($Card->toArray(), 200);
     }
 
     //DELETE /card/{id}
-    public function destroy($id)
+    public function destroy(Request $Request): JsonResponse
     {
-        $Card = Card::find($id);
-
+        //get and remove it
+        $Card = $Request->Card;
         $Card->delete();
 
-        //result
-        return Response::json([]);
+        //result blank JSON
+        return Response::json([], 204);
     }
 }
