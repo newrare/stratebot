@@ -6,6 +6,7 @@ use Closure;
 use App\Models\Card;
 use Illuminate\Http\Request;
 
+use Response;
 
 class CardMiddleware
 {
@@ -14,7 +15,7 @@ class CardMiddleware
         //check Card
         $Card = Card::find($Request->route('idCard'));
 
-        if( !$Card )
+        if( null === $Card )
         {
             return Response::json(['error' => 'Card not found!'], 404);
         }

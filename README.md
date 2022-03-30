@@ -60,6 +60,11 @@ For debug in blade view, you can use this elements:
 {{ dd(get_defined_vars()) }}
 ```
 
+Log file is default set:
+```
+storage/logs/laravel.log
+```
+
 
 ## Security Vulnerabilities
 

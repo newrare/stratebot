@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 use Response;
+use Validator;
 
 class CardController extends Controller
 {
@@ -15,6 +16,16 @@ class CardController extends Controller
     public function create(): View
     {
         return view('createCard');
+    }
+
+    //GET /api/card
+    public function index(): JsonResponse
+    {
+        //result
+        $results = Card::pluck('id')->toArray();
+
+        //return array of Card id
+        return Response::json($results, 200);
     }
 
     //POST /api/card
@@ -31,23 +42,19 @@ class CardController extends Controller
             'nemesis'       => 'nullable|json'
         ];
 
-        $Request->validate($rules);
+        $inputs     = $Request->all();
+        $validator  = Validator::make($inputs, $rules);
+
+        if( $validator->fails())
+        {
+            return Response::json(['error' => $validator->errors()->first()], 400);
+        }
 
         // create Card by fillable Model and save it
-        $Card = Card::create($Request->all());
+        $Card = Card::create($inputs);
 
         //return array of Card
         return Response::json($Card->toArray(), 201);
-    }
-
-    //GET /api/card
-    public function index(): JsonResponse
-    {
-        //result
-        $results = Card::pluck('id')->toArray();
-
-        //return array of Card id
-        return Response::json($results, 200);
     }
 
     //GET /card/{id}
@@ -63,23 +70,35 @@ class CardController extends Controller
     //PUT /card/{id}
     public function update(Request $Request): JsonResponse
     {
+        //get Card
+        $Card = $Request->Card;
+
         //create rules (is set only when input is defined)
         $rules = [];
 
-        $Request->name          ?? $rules['name']           = 'required|string|unique:cards|max:100';
-        $Request->description   ?? $rules['description']    = 'required|string|max:1000';
-        $Request->move          ?? $rules['move']           = 'required|integer';
-        $Request->attack        ?? $rules['attack']         = 'required|integer';
-        $Request->defense       ?? $rules['defense']        = 'required|integer';
-        $Request->type          ?? $rules['type']           = 'required|in:water,fire,earth';
-        $Request->nemesis       ?? $rules['nemesis']        = 'nullable|json';
+        if( $Request->has('name') and $Card->name != $Request->name )
+        {
+            $rules['name'] = 'required|string|unique:cards|max:100';
+        }
+
+        if( $Request->has('description') ) { $rules['description']    = 'required|string|max:1000'; }
+        if( $Request->has('move')        ) { $rules['move']           = 'required|integer'; }
+        if( $Request->has('attack')      ) { $rules['attack']         = 'required|integer'; }
+        if( $Request->has('defense')     ) { $rules['defense']        = 'required|integer'; }
+        if( $Request->has('type')        ) { $rules['type']           = 'required|in:water,fire,earth'; }
+        if( $Request->has('nemesis')     ) { $rules['nemesis']        = 'nullable|json'; }
 
         //check inputs
-        $Request->validate($rules);
+        $inputs     = $Request->all();
+        $validator  = Validator::make($inputs, $rules);
 
-        //get, update and save Card
-        $Card = $Request->Card;
-        $Card->update($Request->all());
+        if( $validator->fails() )
+        {
+            return Response::json(['error' => $validator->errors()->first()], 400);
+        }
+
+        //pdate and save Card
+        $Card->update($inputs);
 
         //return array of Card updated
         return Response::json($Card->toArray(), 200);

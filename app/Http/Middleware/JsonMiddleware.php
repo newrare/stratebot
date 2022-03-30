@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class ApiMiddleware
+class JsonMiddleware
 {
     public function handle(Request $Request, Closure $Next)
     {
