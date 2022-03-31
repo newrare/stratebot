@@ -2,6 +2,21 @@
 
 use Illuminate\Support\Str;
 
+//heroku clear db config (production)
+if(
+    'heroku' == env('DB_CONNECTION')        and
+    null    !== env('CLEARDB_DATABASE_URL') and
+    ''      !== env('CLEARDB_DATABASE_URL')
+)
+{
+    $dbConfig = parse_url(env("CLEARDB_DATABASE_URL"));
+
+    $herokuHost       = $dbConfig["host"] ?? null;
+    $herokuUsername   = $dbConfig["user"] ?? null;
+    $herokuPassword   = $dbConfig["pass"] ?? null;
+    $herokuDatabase   = substr($dbConfig["path"], 1);
+}
+
 return [
 
     /*
@@ -62,6 +77,17 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
+
+        'heroku' => array(
+            'driver'    => 'mysql',
+            'host'      => $herokuHost,
+            'database'  => $herokuDatabase,
+            'username'  => $herokuUsername,
+            'password'  => $herokuPassword,
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+        ),
 
         'pgsql' => [
             'driver' => 'pgsql',
