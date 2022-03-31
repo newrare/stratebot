@@ -3,6 +3,11 @@
 use Illuminate\Support\Str;
 
 //heroku clear db config (production)
+$herokuHost     = '';
+$herokuUsername = '';
+$herokuPassword = '';
+$herokuDatabase = '';
+
 if(
     'heroku' == env('DB_CONNECTION')        and
     null    !== env('CLEARDB_DATABASE_URL') and
@@ -11,9 +16,9 @@ if(
 {
     $dbConfig = parse_url(env("CLEARDB_DATABASE_URL"));
 
-    $herokuHost       = $dbConfig["host"] ?? null;
-    $herokuUsername   = $dbConfig["user"] ?? null;
-    $herokuPassword   = $dbConfig["pass"] ?? null;
+    $herokuHost       = $dbConfig["host"];
+    $herokuUsername   = $dbConfig["user"];
+    $herokuPassword   = $dbConfig["pass"];
     $herokuDatabase   = substr($dbConfig["path"], 1);
 }
 
