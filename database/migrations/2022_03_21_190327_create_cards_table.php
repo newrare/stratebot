@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('attack');
             $table->integer('defense');
             $table->enum('type', ['water', 'fire', 'earth']);
-            $table->json('nemesis');
+            $table->json('nemesis')->nullable();
             $table->timestamps();
         });
     }
