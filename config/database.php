@@ -10,11 +10,11 @@ $herokuDatabase = '';
 
 if(
     'heroku' == env('DB_CONNECTION')        and
-    null    !== env('CLEARDB_DATABASE_URL') and
-    ''      !== env('CLEARDB_DATABASE_URL')
+    null    !== env('JAWSDB_URL') and
+    ''      !== env('JAWSDB_URL')
 )
 {
-    $dbConfig = parse_url(env("CLEARDB_DATABASE_URL"));
+    $dbConfig = parse_url(env("JAWSDB_URL"));
 
     $herokuHost       = $dbConfig["host"];
     $herokuUsername   = $dbConfig["user"];
