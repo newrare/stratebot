@@ -1,0 +1,187 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ rootNamespace }}Http\Controllers\Controller;
+use {{ namespacedRequests }}
+
+class {{ class }} extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \{{ namespacedStoreRequest }}  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store({{ storeRequest }} $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Http\Response
+     */
+    public function show({{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Http\Response
+     */
+    public function edit({{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \{{ namespacedUpdateRequest }}  $request
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Http\Response
+     */
+    public function update({{ updateRequest }} $request, {{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy({{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+}
+
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\{{ model }};
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+
+use Response;
+use Validator;
+
+class {{ class }} extends Controller
+{
+    //route web /create/{{ modelVariable }}
+    public function create(): View
+    {
+        return view('create{{ model }}');
+    }
+
+    //GET /api/{{ modelVariable }}
+    public function index(): JsonResponse
+    {
+        //result
+        $results = {{ model }}::pluck('id')->toArray();
+
+        //return array of {{ model }} id
+        return Response::json($results, 200);
+    }
+
+
+    //POST /api/{{ modelVariable }}
+    public function store(Request $Request): JsonResponse
+    {
+        //check inputs
+        $rules = [];
+
+        $inputs     = $Request->all();
+        $validator  = Validator::make($inputs, $rules);
+
+        if( $validator->fails())
+        {
+            return Response::json(['error' => $validator->errors()->first()], 400);
+        }
+
+        // create {{ model }} by fillable Model and save it
+        ${{ model }} = {{ model }}::create($inputs);
+
+        //return array of {{ model }}
+        return Response::json(${{ model }}->toArray(), 201);
+    }
+
+    //GET /{{ modelVariable }}/{id}
+    public function show(Request $Request): JsonResponse
+    {
+        //get {{ model }}
+        ${{ model }} = $Request->{{ model }};
+
+        //return array of {{ model }}
+        return Response::json(${{ model }}->toArray(), 200);
+    }
+
+    //PUT /{{ modelVariable }}/{id}
+    public function update(Request $Request): JsonResponse
+    {
+        //get {{ model }}
+        ${{ model }} = $Request->{{ model }};
+
+        //create rules (is set only when input is defined)
+        $rules = [];
+
+        //if( $Request->has('') ) { $rules[''] = ''; }
+
+        //check inputs
+        $inputs     = $Request->all();
+        $validator  = Validator::make($inputs, $rules);
+
+        if( $validator->fails() )
+        {
+            return Response::json(['error' => $validator->errors()->first()], 400);
+        }
+
+        //update and save {{ model }}
+        ${{ model }}->update($inputs);
+
+        //return array of {{ model }} updated
+        return Response::json(${{ model }}->toArray(), 200);
+    }
+
+    //DELETE /{{ modelVariable }}/{id}
+    public function destroy(Request $Request): JsonResponse
+    {
+        //get and remove it
+        ${{ model }} = $Request->{{ model }};
+        ${{ model }}->delete();
+
+        //result blank JSON
+        return Response::json([], 204);
+    }
+}
