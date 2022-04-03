@@ -1,0 +1,62 @@
+<?php
+
+namespace Tests\Unit;
+
+use App\Models\{{ model }};
+use Tests\TestCase;
+
+class {{ class }} extends TestCase
+{
+    //POST /{{ modelVariable }}
+    public function test_store()
+    {
+        $inputs = [
+        ];
+
+        $Response = $this->postJson('/api/{{ modelVariable }}', $inputs);
+
+        $Response->assertStatus(201);
+
+        //dump($Response->getData());
+    }
+
+    //GET /{{ modelVariable }}
+    public function test_index()
+    {
+        $Response = $this->getJson('/api/{{ modelVariable }}');
+
+        $Response->assertStatus(200);
+    }
+
+    //GET /{{ modelVariable }}/{id}
+    public function test_show()
+    {
+        ${{ model }} = {{ model }}::firstWhere('', '');
+
+        $Response = $this->getJson('/api/{{ modelVariable }}/' . ${{ model }}->id);
+
+        $Response->assertStatus(200);
+    }
+
+    //PUT /{{ modelVariable }}/{id}
+    public function test_update()
+    {
+        ${{ model }} = {{ model }}::firstWhere('', '');
+
+        //${{ model }}-> = ;
+
+        $Response = $this->putJson('/api/{{ modelVariable }}/' . ${{ model }}->id, ${{ model }}->toArray());
+
+        $Response->assertStatus(200);
+    }
+
+    //DELETE /{{ modelVariable }}/{id}
+    public function test_destroy()
+    {
+        ${{ model }} = {{ model }}::firstWhere('', '');
+
+        $Response = $this->deleteJson('/api/{{ modelVariable }}/' . ${{ model }}->id);
+
+        $Response->assertStatus(204);
+    }
+}
