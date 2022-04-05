@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 class makeApi extends Command
 {
     protected $signature    = 'make:api {name}';
-    protected $description  = 'Create a new Migration, Model, Middleware, Controller and Test classes';
+    protected $description  = 'Create a new Migration, Model, Middleware, Controller, View, Test and routes';
 
     public function handle()
     {
@@ -20,7 +20,7 @@ class makeApi extends Command
 
         //migration
         $this->info("Creating $name Migration...");
-        Artisan::call("make:migration $name");
+        Artisan::call("make:migration create$name" . 'sTable');
 
         //model
         $this->info("Creating $name Model...");
@@ -45,6 +45,17 @@ class makeApi extends Command
         $this->info("Creating $name Controller...");
         Artisan::call("make:controller $name" . "Controller --model=$name");
 
+        //view
+        $this->info("Creating $name View...");
+
+        $content    = Storage::get('stubs/custom.view.stub');
+
+        $search     = '{{ class }}';
+        $replace    = $name;
+        $content    = Str::replace($search, $replace, $content);
+
+        Storage::put("resources/views/create$name" . '.blade.php' , $content);
+
         //test
         $this->info("Creating $name Test...");
 
@@ -64,8 +75,8 @@ class makeApi extends Command
 
         Storage::put("tests/Unit/$name" . 'Test.php' , $content);
 
-        //route
-        $this->info("Updating route...");
+        //route API
+        $this->info("Updating route API...");
 
         $content    = Storage::get('routes/api.php');
 
@@ -90,6 +101,26 @@ use App\Http\Middleware\\' . $name . 'Middleware;';
         $content    = Str::replace($search, $replace, $content);
 
         Storage::put('routes/api.php', $content);
+
+        //route web
+        $this->info("Updating route web...");
+
+        $content    = Storage::get('routes/web.php');
+
+        $search     = 'use App\Http\Controllers\CardController;';
+        $replace    = 'use App\Http\Controllers\CardController;
+use App\Http\Controllers\\' . $name . 'Controller;';
+
+        $content    = Str::replace($search, $replace, $content);
+
+        $search     = '});';
+        $replace    = '
+    Route::get   ("/create/' . strtolower($name) . '",   [' . $name . 'Controller::class,     "create"])->middleware(AdminMiddleware::class)->name("create' . $name . '");
+});';
+
+        $content    = Str::replace($search, $replace, $content);
+
+        Storage::put('routes/web.php', $content);
 
         return 0;
     }

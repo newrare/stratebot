@@ -1,0 +1,6 @@
+@extends('layouts.app')
+@section('title', 'Create {{ class }}')
+
+@section('content')
+    <h1>Create {{ class }}</h1>
+@endsection
