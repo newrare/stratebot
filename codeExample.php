@@ -1,4 +1,5 @@
 <?php
+
     //this is just a documentation with many examples
     /*
         //on User model
@@ -15,4 +16,5 @@
             return $this->belongsTo(User::class);
         }
     */
+
 ?>
