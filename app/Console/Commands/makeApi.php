@@ -82,7 +82,7 @@ class makeApi extends Command
 
         $search     = 'use App\Http\Controllers\CardController;';
         $replace    = 'use App\Http\Controllers\CardController;
-use App\Http\Controller\\' . $name . 'Controller;';
+use App\Http\Controllers\\' . $name . 'Controller;';
         $content    = Str::replace($search, $replace, $content);
 
         $search     = 'use App\Http\Middleware\AdminMiddleware;';

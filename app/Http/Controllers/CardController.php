@@ -81,12 +81,12 @@ class CardController extends Controller
             $rules['name'] = 'required|string|unique:cards|max:100';
         }
 
-        if( $Request->has('description') ) { $rules['description']    = 'required|string|max:1000'; }
-        if( $Request->has('move')        ) { $rules['move']           = 'required|integer'; }
-        if( $Request->has('attack')      ) { $rules['attack']         = 'required|integer'; }
-        if( $Request->has('defense')     ) { $rules['defense']        = 'required|integer'; }
+        if( $Request->has('description') ) { $rules['description']    = 'required|string|max:1000';     }
+        if( $Request->has('move')        ) { $rules['move']           = 'required|integer';             }
+        if( $Request->has('attack')      ) { $rules['attack']         = 'required|integer';             }
+        if( $Request->has('defense')     ) { $rules['defense']        = 'required|integer';             }
         if( $Request->has('type')        ) { $rules['type']           = 'required|in:water,fire,earth'; }
-        if( $Request->has('nemesis')     ) { $rules['nemesis']        = 'nullable|json'; }
+        if( $Request->has('nemesis')     ) { $rules['nemesis']        = 'nullable|json';                }
 
         //check inputs
         $inputs     = $Request->all();
