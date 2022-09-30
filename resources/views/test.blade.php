@@ -2,21 +2,17 @@
 @section('title', 'Test')
 
 @section('content')
-    <div class="mt-10 grid grid-cols-3 md:grid-cols-6 lg:grid-cols-9 gap-5">
-        <div class="bg-emerald-300 p-5 rounded-lg">01</div>
-        <div class="bg-emerald-300 p-5 rounded-lg">02</div>
-        <div class="bg-emerald-300 p-5 rounded-lg">03</div>
-        <div class="bg-emerald-300 p-5 rounded-lg">04</div>
-        <div class="bg-emerald-300 p-5 rounded-lg">03</div>
-        <div class="bg-emerald-300 p-5 rounded-lg">03</div>
-        <div class="bg-emerald-300 p-5 rounded-lg">03</div>
-        <div class="bg-emerald-300 p-5 rounded-lg">03</div>
-        <div class="bg-emerald-300 p-5 rounded-lg">03</div>
-        <div class="bg-emerald-300 p-5 rounded-lg">09</div>
-        <div class="bg-emerald-300 p-5 rounded-lg">TOP</div>
-    </div>
+    <livewire:input label="Login" icon="fas-user" error="User not found!" />
+    <livewire:input type="password" />
+    <livewire:input label="Test" error="Nope" />
+    <livewire:input label="Truc" />
+
+    <livewire:alert message='String' />
+    <livewire:alert :message='$plop' />
+    <livewire:alert type="danger" message='Danger' />
+    <livewire:alert type="success" message='OK' />
+    <livewire:alert type="success" message='Menu' icon='fas-square' />
+    <livewire:alert type="warn" message='oups' />
 
     <livewire:attack />
 @endsection
-
-@livewireScripts

@@ -11,7 +11,8 @@
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "livewire/livewire": "^2.10"
+        "livewire/livewire": "^2.10",
+        "owenvoke/blade-fontawesome": "^2.0"
     },
     "require-dev": {
         "spatie/laravel-ignition": "^1.0",

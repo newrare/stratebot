@@ -11,7 +11,7 @@
 
 ## About Stratebot
 
-We want build an original strategy game application with Laravel, Tailwind css and Alpine.js.
+We want build an original strategy game application with Laravel, livewire, Tailwind css and Alpine.js.
 
 
 ## Status
@@ -25,6 +25,7 @@ Todo:
 - Lang system
 - Email system
 - Chat system
+- deploy with migration
 
 - Menu (on template)
 

@@ -9,6 +9,6 @@ class TestController extends Controller
     //route web /test
     public function index()
     {
-        return view('test');
+        return view('test', array('plop' => "hello you"));
     }
 }
