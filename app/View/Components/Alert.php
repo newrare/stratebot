@@ -20,25 +20,25 @@ class Alert extends Component
         if( "error" == $type or "danger" == $type )
         {
             $type = "red";
-            $icon = "alert-triangle";
+            $icon = "fas-exclamation-triangle";
 
         }
         elseif ( "warn" == $type or "warning" == $type )
         {
             $type = "yellow";
-            $icon = "bell";
+            $icon = "fas-bell";
 
         }
         elseif ( "success" == $type or "done" == $type or "ok" == $type )
         {
             $type = "green";
-            $icon = "check-circle";
+            $icon = "fas-check-circle";
 
         }
         else
         {
             $type = "blue";
-            $icon = "message-square";
+            $icon = "fas-square";
         }
 
         $this->message  = $message;

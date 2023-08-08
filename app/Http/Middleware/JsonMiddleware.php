@@ -14,7 +14,7 @@ class JsonMiddleware
         //check
         if( !$Request->isJson() )
         {
-            return new Response(view('error')->with('message', 'API Request must be JSON type!'));
+            return new Response(view('error')->with('message', 'API Request must be JSON type!'), 400);
         }
 
         //all are ok, next...

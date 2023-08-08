@@ -1,6 +1,8 @@
 @extends('layouts.app')
-@section('title', 'Create Bot')
+@section('title', __('app.createBot'))
 
 @section('content')
-    <livewire:title title='Create Bot' />
+    <x-title title='Create Bot' />
+
+    <x-form-bot />
 @endsection

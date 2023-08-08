@@ -33,19 +33,13 @@ class BotController extends Controller
     public function store(Request $Request): JsonResponse
     {
         //check inputs
-        $rules = [
-            'name'          => 'required|string|unique:bots|max:100',
-            'description'   => 'required|string|max:1000',
-            'image'         => 'required|url',
-            'boss'          => 'required|boolean'
-        ];
-
+        $rules      = Bot::rules();
         $inputs     = $Request->all();
         $validator  = Validator::make($inputs, $rules);
 
         if( $validator->fails() )
         {
-            return Response::json(['error' => $validator->errors()->first()], 400);
+            return Response::json(['errors' => $validator->errors()], 400);
         }
 
         //create Bot by fillable Model and save it

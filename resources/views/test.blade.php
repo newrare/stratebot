@@ -2,17 +2,24 @@
 @section('title', 'Test')
 
 @section('content')
-    <livewire:input label="Login" icon="fas-user" error="User not found!" />
-    <livewire:input type="password" />
-    <livewire:input label="Test" error="Nope" />
-    <livewire:input label="Truc" />
+    {{ __('app.name') }}
 
-    <livewire:alert message='String' />
-    <livewire:alert :message='$plop' />
-    <livewire:alert type="danger" message='Danger' />
-    <livewire:alert type="success" message='OK' />
-    <livewire:alert type="success" message='Menu' icon='fas-square' />
-    <livewire:alert type="warn" message='oups' />
+    <x-input name="Input Component" color="yellow" type="password" />
+
+    <x-textarea name="description" :label="__('app.description')" color="yellow" />
+
+    <livewire:checkbox name="checkBoss" :message="__('app.boss')" />
+
+    <x-button color="green" message="Enregistrer" icon="fas-user" />
+
+    <x-input name="login"    label="Plop" icon="fas-user"   />
+    <x-input name="pass"     type="password"                />
+    <x-input name="test"     label="Test"                   />
+
+    <x-alert type="danger"  message='Danger'                    />
+    <x-alert type="warn"    message='OK'                        />
+    <x-alert type="success" message='Menu' icon='fas-square'    />
+    <x-alert type="nop"     message='oups'                      />
 
     <livewire:attack />
 @endsection

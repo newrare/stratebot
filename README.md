@@ -18,6 +18,11 @@ We want build an original strategy game application with Laravel, livewire, Tail
 
 Work in progress...
 Todo:
+- debug and finish textarea
+- finih checkbox component
+- remove livearea
+- git push
+
 - Update Card table (add image text (url), add protect json (array up down left right), remove 'move')
 
 - Log system
